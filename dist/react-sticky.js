@@ -318,8 +318,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      if (scrollElementId) {
-	        document.getElementById(scrollElementId).addEventListener("scroll", this.recomputeState);
+	      if (this.props.scrollElementId) {
+	        document.getElementById(this.props.scrollElementId).addEventListener("scroll", this.recomputeState);
 	      } else {
 	        this.on(['resize', 'scroll', 'touchstart', 'touchmove', 'touchend', 'pageshow', 'load'], this.recomputeState);
 	      }
@@ -333,8 +333,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
-	      if (scrollElementId) {
-	        document.getElementById(scrollElementId).removeEventListener("scroll", this.recomputeState);
+	      if (this.props.scrollElementId) {
+	        document.getElementById(this.props.scrollElementId).removeEventListener("scroll", this.recomputeState);
 	      } else {
 	        this.off(['resize', 'scroll', 'touchstart', 'touchmove', 'touchend', 'pageshow', 'load'], this.recomputeState);
 	      }

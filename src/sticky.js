@@ -42,8 +42,8 @@ export default class Sticky extends React.Component {
   }
 
   componentDidMount() {
-    if (scrollElementId) {
-      document.getElementById(scrollElementId).addEventListener("scroll", this.recomputeState);
+    if (this.props.scrollElementId) {
+      document.getElementById(this.props.scrollElementId).addEventListener("scroll", this.recomputeState);
     } else {
       this.on(['resize', 'scroll', 'touchstart', 'touchmove', 'touchend', 'pageshow', 'load'], this.recomputeState);
     }
@@ -55,8 +55,8 @@ export default class Sticky extends React.Component {
   }
 
   componentWillUnmount() {
-    if (scrollElementId) {
-      document.getElementById(scrollElementId).removeEventListener("scroll", this.recomputeState);
+    if (this.props.scrollElementId) {
+      document.getElementById(this.props.scrollElementId).removeEventListener("scroll", this.recomputeState);
     } else {
       this.off(['resize', 'scroll', 'touchstart', 'touchmove', 'touchend', 'pageshow', 'load'], this.recomputeState);
     }
