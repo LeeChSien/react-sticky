@@ -480,7 +480,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  topOffset: _react2.default.PropTypes.number,
 	  bottomOffset: _react2.default.PropTypes.number,
 	  onStickyStateChange: _react2.default.PropTypes.func,
-	  scrollElementId: _react2.default.PropTypes.object
+	  scrollElementId: _react2.default.PropTypes.string
 	};
 	Sticky.defaultProps = {
 	  isActive: true,

@@ -12,7 +12,7 @@ export default class Sticky extends React.Component {
     topOffset: React.PropTypes.number,
     bottomOffset: React.PropTypes.number,
     onStickyStateChange: React.PropTypes.func,
-    scrollElementId: React.PropTypes.object,
+    scrollElementId: React.PropTypes.string,
   }
 
   static defaultProps = {
