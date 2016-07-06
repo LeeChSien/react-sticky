@@ -11,7 +11,8 @@ export default class Sticky extends React.Component {
     stickyStyle: React.PropTypes.object,
     topOffset: React.PropTypes.number,
     bottomOffset: React.PropTypes.number,
-    onStickyStateChange: React.PropTypes.func
+    onStickyStateChange: React.PropTypes.func,
+    scrollElement: React.PropTypes.object,
   }
 
   static defaultProps = {
@@ -22,7 +23,8 @@ export default class Sticky extends React.Component {
     stickyStyle: {},
     topOffset: 0,
     bottomOffset: 0,
-    onStickyStateChange: () => {}
+    onStickyStateChange: () => {},
+    scrollElement: null
   }
 
   static contextTypes = {
@@ -40,7 +42,11 @@ export default class Sticky extends React.Component {
   }
 
   componentDidMount() {
-    this.on(['resize', 'scroll', 'touchstart', 'touchmove', 'touchend', 'pageshow', 'load'], this.recomputeState);
+    if (scrollElement) {
+      scrollElement.addEventListener("scroll", this.recomputeState);
+    } else {
+      this.on(['resize', 'scroll', 'touchstart', 'touchmove', 'touchend', 'pageshow', 'load'], this.recomputeState);
+    }
     this.recomputeState();
   }
 
@@ -49,7 +55,12 @@ export default class Sticky extends React.Component {
   }
 
   componentWillUnmount() {
-    this.off(['resize', 'scroll', 'touchstart', 'touchmove', 'touchend', 'pageshow', 'load'], this.recomputeState);
+    if (scrollElement) {
+      scrollElement.removeEventListener("scroll", this.recomputeState);
+    } else {
+      this.off(['resize', 'scroll', 'touchstart', 'touchmove', 'touchend', 'pageshow', 'load'], this.recomputeState);
+    }
+    
     this.channel.unsubscribe(this.updateContext);
   }
 
