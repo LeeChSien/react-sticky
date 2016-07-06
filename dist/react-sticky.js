@@ -318,7 +318,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      this.on(['resize', 'scroll', 'touchstart', 'touchmove', 'touchend', 'pageshow', 'load'], this.recomputeState);
+	      if (scrollElementId) {
+	        document.getElementById(scrollElementId).addEventListener("scroll", this.recomputeState);
+	      } else {
+	        this.on(['resize', 'scroll', 'touchstart', 'touchmove', 'touchend', 'pageshow', 'load'], this.recomputeState);
+	      }
 	      this.recomputeState();
 	    }
 	  }, {
@@ -329,7 +333,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
-	      this.off(['resize', 'scroll', 'touchstart', 'touchmove', 'touchend', 'pageshow', 'load'], this.recomputeState);
+	      if (scrollElementId) {
+	        document.getElementById(scrollElementId).removeEventListener("scroll", this.recomputeState);
+	      } else {
+	        this.off(['resize', 'scroll', 'touchstart', 'touchmove', 'touchend', 'pageshow', 'load'], this.recomputeState);
+	      }
+
 	      this.channel.unsubscribe(this.updateContext);
 	    }
 	  }, {
@@ -470,7 +479,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  stickyStyle: _react2.default.PropTypes.object,
 	  topOffset: _react2.default.PropTypes.number,
 	  bottomOffset: _react2.default.PropTypes.number,
-	  onStickyStateChange: _react2.default.PropTypes.func
+	  onStickyStateChange: _react2.default.PropTypes.func,
+	  scrollElementId: _react2.default.PropTypes.object
 	};
 	Sticky.defaultProps = {
 	  isActive: true,
@@ -480,7 +490,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  stickyStyle: {},
 	  topOffset: 0,
 	  bottomOffset: 0,
-	  onStickyStateChange: function onStickyStateChange() {}
+	  onStickyStateChange: function onStickyStateChange() {},
+	  scrollElementId: null
 	};
 	Sticky.contextTypes = {
 	  'sticky-channel': _react2.default.PropTypes.any
