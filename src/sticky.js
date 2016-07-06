@@ -12,7 +12,7 @@ export default class Sticky extends React.Component {
     topOffset: React.PropTypes.number,
     bottomOffset: React.PropTypes.number,
     onStickyStateChange: React.PropTypes.func,
-    scrollElement: React.PropTypes.object,
+    scrollElementId: React.PropTypes.object,
   }
 
   static defaultProps = {
@@ -24,7 +24,7 @@ export default class Sticky extends React.Component {
     topOffset: 0,
     bottomOffset: 0,
     onStickyStateChange: () => {},
-    scrollElement: null
+    scrollElementId: null
   }
 
   static contextTypes = {
@@ -42,8 +42,8 @@ export default class Sticky extends React.Component {
   }
 
   componentDidMount() {
-    if (scrollElement) {
-      scrollElement.addEventListener("scroll", this.recomputeState);
+    if (scrollElementId) {
+      document.getElementById(scrollElementId).addEventListener("scroll", this.recomputeState);
     } else {
       this.on(['resize', 'scroll', 'touchstart', 'touchmove', 'touchend', 'pageshow', 'load'], this.recomputeState);
     }
@@ -55,8 +55,8 @@ export default class Sticky extends React.Component {
   }
 
   componentWillUnmount() {
-    if (scrollElement) {
-      scrollElement.removeEventListener("scroll", this.recomputeState);
+    if (scrollElementId) {
+      document.getElementById(scrollElementId).removeEventListener("scroll", this.recomputeState);
     } else {
       this.off(['resize', 'scroll', 'touchstart', 'touchmove', 'touchend', 'pageshow', 'load'], this.recomputeState);
     }
